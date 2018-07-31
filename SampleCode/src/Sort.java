@@ -12,7 +12,8 @@ public class Sort {
 //		selectionSort(array);
 //		bubbleSort(array);
 //		insertionSort(array);
-		quickSort(array,0,array.length-1);
+//		quickSort(array,0,array.length-1);
+		mergeSort(array,0,array.length-1);
 
 	}
 
@@ -46,7 +47,7 @@ public class Sort {
 	}
 
 	/**
-	 * 거품정렬
+	 * 거품 정렬
 	 * 왼족에서 오른쪽까지 이동하며 인접한 두 숫자의 크기 비교하며 위치교환
 	 */
 	public static void  bubbleSort(int[] array) {
@@ -138,9 +139,62 @@ public class Sort {
 	}
 
 	/**
-	 * 병합정렬
+	 * 병합 정렬
 	 * 전체를 분할 후 병합하며 정렬, 재귀함수 사용
 	 */
+	public static void mergeSort(int[] array, int l, int r) {
+		if (l < r) {
+			int mid = (l + r) / 2;
+			mergeSort(array, l, mid);
+			mergeSort(array, mid + 1, r);
+			
+			merge(array, l, mid, r);
+			
+			// 출력 //
+			System.out.println( Arrays.toString(array) );
+			// 출력 끝 //
+			
+		}
+	}
+	
+	
+	/**
+	 * 병합 정렬 - merge
+	 * 정렬된 두 배열을 병합하여 하나의 배열로 만든다 ([l..mid], [mid+1..r] => [l..r])
+	 */
+	public static void merge(int[] array, int l, int mid, int r) {
+		int i = l;
+		int j = mid + 1;
+		int k = l;
+		
+		int temp[] = new int[array.length];
+		while(i<=mid && j<=r) {
+			if(array[i] < array[j]) {
+				temp[k++] = array[i++];  // 더 작은수를 temp 에 정렬시킴
+			} else {
+				temp[k++] = array[j++];
+			}
+		}
+		
+		while (i<=mid) {
+			temp[k++] = array[i++];
+		}
+		
+		while (j<=r) {
+			temp[k++] = array[j++];
+		}
+		
+		for(int index = l; index <= r; index++) {
+			array[index] = temp[index];
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
 
 
 
