@@ -1,6 +1,7 @@
 
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Sort {
 
@@ -13,7 +14,8 @@ public class Sort {
 //		bubbleSort(array);
 //		insertionSort(array);
 //		quickSort(array,0,array.length-1);
-		mergeSort(array,0,array.length-1);
+//		mergeSort(array,0,array.length-1);
+		countingSort(array);
 
 	}
 
@@ -190,6 +192,71 @@ public class Sort {
 		
 	}
 	
+	/**
+	 * 계수 정렬
+	 * 원소의 값에 따른 누적갯수를 사용하여 공간을 확보한 후 그 위치에 끼워 맞춤
+	 */
+	public static void countingSort(int[] array) {
+		
+		// 최대값 구하기
+		int max = 0;
+		for (int i = 0 ; i < array.length ; i++) {
+			if (array[i] > max) {
+				max = array[i];
+			}
+		}
+		
+		int[] count = new int[max+1];
+		int[] result = new int[array.length];
+		
+		//각 원소의 갯수
+		for(int i = 0; i < array.length; i++) {
+			count[array[i]]++;
+		}
+		
+		// 누적을 계산
+		for(int i = 1; i < count.length; i++) {
+			count[i] += count[i-1];
+		}
+		
+		// 누적합을 이용해 정렬
+		for (int i = array.length - 1; i >= 0; i--) {
+			result[--count[array[i]]] = array[i];
+		}
+		
+		// 출력 //
+		System.out.println( Arrays.toString(result));
+		// 출력 끝 //
+		
+	}
+	
+	/**
+	 * 기수 정렬
+	 */
+	public static void radixSort(int[] array) {
+		// http://blog.naver.com/PostView.nhn?blogId=xxxstarxxx&logNo=220961546548&parentCategoryNo=&categoryNo=87&viewDate=&isShowPopularPosts=true&from=search
+		int max = 0;
+		for (int temp : array) {
+			if (max < temp)
+				max = temp;
+		}
+		
+		int maxLength = (max%10) + 1;
+		
+	}
+	
+	public static int getMaxLength(int[] array) {
+		int max = 0;
+		for (int temp : array) {
+			if (max < temp)
+				max = temp;
+		}
+
+//		return (int) Math.log10((double) max) + 1;
+		return (max%10) + 1;
+
+	}
+
 	
 	
 	
