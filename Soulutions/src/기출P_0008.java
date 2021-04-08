@@ -72,7 +72,6 @@ public class 기출P_0008 {
 			}
 			bw.write("#" + tc + " " + sb.reverse().toString() + "\n");
 		}
-
 		bw.flush();
 		bw.close();
 		br.close();
