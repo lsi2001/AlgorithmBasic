@@ -5,7 +5,7 @@ import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 // 서로소 집합(Disjoint Set, Union-Find)
 // [기출P-0008] 연방
-// 도시의 교류를 차단하고 서로 교류를 직접 또는 간접으로 하는 도시인지 물을때는 그 결과르 생성하여 출력
+// 도시의 교류를 차단하고 서로 교류를 직접 또는 간접으로 하는 도시인지 물을때는 그 결과를 생성하여 출력
 // 모든 교류를 차단하는 처리를 미리 처리하기 위해 Union Find 를 위한 배열생성 시 간선은 무시하고 거꾸로 질문 또는 처리를 확인하며 답을 생성 한다. 교류 제거 처리가 먼저 이루어졌으므로 거꾸로 진행할 때는 교류 정보를 추가한다.
 public class 기출P_0008 {
 	//public class Solution { 
