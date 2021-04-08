@@ -5,21 +5,21 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-// [¿¬½ÀA-0011] Cow Party
-// ´ÙÀÍ½ºÆ®¶ó(Dijkstra) (ÇÑ ÁöÁ¡¿¡¼­ °¢°¢ÀÇ ÃÖ´Ü°Å¸® ±¸ÇÏ±â, °£¼±ÀÇ ºñ¿ëÀº ¾ç¼ö)
-// °¢ ³óÀå¿¡¼­ X ³óÀåÀ» ÃÖ´Ü°Å¸®·Î °¬´Ù°¡ ´Ù½Ã µ¹¾Æ¿À´Â °ªÀ» ±¸ÇÏ´Â ¹®Á¦
+// [ì—°ìŠµA-0011] Cow Party
+// ë‹¤ìµìŠ¤íŠ¸ë¼(Dijkstra) (í•œ ì§€ì ì—ì„œ ê°ê°ì˜ ìµœë‹¨ê±°ë¦¬ êµ¬í•˜ê¸°, ê°„ì„ ì˜ ë¹„ìš©ì€ ì–‘ìˆ˜)
+// ê° ë†ì¥ì—ì„œ X ë†ì¥ì„ ìµœë‹¨ê±°ë¦¬ë¡œ ê°”ë‹¤ê°€ ë‹¤ì‹œ ëŒì•„ì˜¤ëŠ” ê°’ì„ êµ¬í•˜ëŠ” ë¬¸ì œ
 //
-// °¥¶§¿Í ¿Ã¶§ÀÇ µÎ °ªÀ» ÇÕÃÄ ÃÖ´ë ÀÎ °ªÀ» ±¸ÇÏ¿© Ãâ·Â
-// X·Î °¥¶§´Â ¹æÇâÀ» ¹Ù²Û ÀÎÁ¢¸®½ºÆ®¸¦ ¸¸µé¾î X ¿¡¼­ Ãâ¹ßÇÏ¿© °¢ ³óÀåÀ¸·ÎÀÇ ÃÖ¼Ò°ªÀ» ±¸ÇÏ´Â ¹æ¹ıÀ¸·Î °ªÀ» ±¸ÇÔ (¸ğµç ½ÃÀÛ ÁöÁ¡¿¡ ´ëÇØ¼­ °¢°¢ÀÇ ÃÖ´Ü°Å¸® Áß µµÂøÁöÁ¡ÀÌ XÀÇ °ªÀ» Ã£Áö ¾ÊÀ½)
-// X¿¡¼­ µ¹¾Æ¿Ã¶§´Â X¿¡¼­ °¢ ³óÀåÀ¸·ÎÀÇ ÃÖ¼Ò°ª À» ±¸ÇÔ (¹æÇâÀ» ¹Ù²ÙÁö ¾ÊÀº ÀÎÁ¢¸®½ºÆ® ±×´ë·Î »ç¿ë)
-public class ¿¬½ÀA_0011 {
+// ê°ˆë•Œì™€ ì˜¬ë•Œì˜ ë‘ ê°’ì„ í•©ì³ ìµœëŒ€ ì¸ ê°’ì„ êµ¬í•˜ì—¬ ì¶œë ¥
+// Xë¡œ ê°ˆë•ŒëŠ” ë°©í–¥ì„ ë°”ê¾¼ ì¸ì ‘ë¦¬ìŠ¤íŠ¸ë¥¼ ë§Œë“¤ì–´ X ì—ì„œ ì¶œë°œí•˜ì—¬ ê° ë†ì¥ìœ¼ë¡œì˜ ìµœì†Œê°’ì„ êµ¬í•˜ëŠ” ë°©ë²•ìœ¼ë¡œ ê°’ì„ êµ¬í•¨ (ëª¨ë“  ì‹œì‘ ì§€ì ì— ëŒ€í•´ì„œ ê°ê°ì˜ ìµœë‹¨ê±°ë¦¬ ì¤‘ ë„ì°©ì§€ì ì´ Xì˜ ê°’ì„ ì°¾ì§€ ì•ŠìŒ)
+// Xì—ì„œ ëŒì•„ì˜¬ë•ŒëŠ” Xì—ì„œ ê° ë†ì¥ìœ¼ë¡œì˜ ìµœì†Œê°’ ì„ êµ¬í•¨ (ë°©í–¥ì„ ë°”ê¾¸ì§€ ì•Šì€ ì¸ì ‘ë¦¬ìŠ¤íŠ¸ ê·¸ëŒ€ë¡œ ì‚¬ìš©)
+public class ì—°ìŠµA_0011 {
 	//public class Solution {
 
 	static int N, M, X;
 	static final int inf = 10000000;
-	static ArrayList<Edge>[] go_adjList; // X ·Î °¡´Â ÃÖ´Ü°Å¸®¸¦ ±¸ÇÏ´Â ÀÎÁ¢ ¸®½ºÆ®
-	static ArrayList<Edge>[] back_adjList; // X ¿¡¼­ µ¹¾Æ¿À´Â ÃÖ´Ü °Å¸®¸¦ ±¸ÇÏ´Â ÀÎÁ¢ ¸®½ºÆ®
-	static int[] dest, back; // X·Î °¡´Â ÃÖ´Ü°Å¸®, X¿¡¼­ °¢ ³óÀåÀ¸·Î µ¹¾Æ¿À´Â ÃÖ´Ü °Å¸®
+	static ArrayList<Edge>[] go_adjList; // X ë¡œ ê°€ëŠ” ìµœë‹¨ê±°ë¦¬ë¥¼ êµ¬í•˜ëŠ” ì¸ì ‘ ë¦¬ìŠ¤íŠ¸
+	static ArrayList<Edge>[] back_adjList; // X ì—ì„œ ëŒì•„ì˜¤ëŠ” ìµœë‹¨ ê±°ë¦¬ë¥¼ êµ¬í•˜ëŠ” ì¸ì ‘ ë¦¬ìŠ¤íŠ¸
+	static int[] dest, back; // Xë¡œ ê°€ëŠ” ìµœë‹¨ê±°ë¦¬, Xì—ì„œ ê° ë†ì¥ìœ¼ë¡œ ëŒì•„ì˜¤ëŠ” ìµœë‹¨ ê±°ë¦¬
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -29,9 +29,9 @@ public class ¿¬½ÀA_0011 {
 
 		for (int tc = 1; tc <= T; tc++) {
 			st = new StringTokenizer(br.readLine());
-			N = Integer.parseInt(st.nextToken()); // ³óÀåÀÇ ¼ö
-			M = Integer.parseInt(st.nextToken()); // µµ·ÎÀÇ ¼ö
-			X = Integer.parseInt(st.nextToken()); // ÆÄÆ¼°¡ ¿­¸®´Â ³óÀå (µµÂøÁö)
+			N = Integer.parseInt(st.nextToken()); // ë†ì¥ì˜ ìˆ˜
+			M = Integer.parseInt(st.nextToken()); // ë„ë¡œì˜ ìˆ˜
+			X = Integer.parseInt(st.nextToken()); // íŒŒí‹°ê°€ ì—´ë¦¬ëŠ” ë†ì¥ (ë„ì°©ì§€)
 
 			go_adjList = new ArrayList[N + 1];
 			back_adjList = new ArrayList[N + 1];
@@ -40,23 +40,23 @@ public class ¿¬½ÀA_0011 {
 				back_adjList[i] = new ArrayList<Edge>();
 			}
 
-			// ÀÎÁ¢ ¸®½ºÆ®
+			// ì¸ì ‘ ë¦¬ìŠ¤íŠ¸
 			for(int i = 0; i < M; i++) {
 				st = new StringTokenizer(br.readLine());
 
-				int from = Integer.parseInt(st.nextToken()); // ½ÃÀÛ
-				int to = Integer.parseInt(st.nextToken()); // Á¾·á
-				int time = Integer.parseInt(st.nextToken()); // ½Ã°£
+				int from = Integer.parseInt(st.nextToken()); // ì‹œì‘
+				int to = Integer.parseInt(st.nextToken()); // ì¢…ë£Œ
+				int time = Integer.parseInt(st.nextToken()); // ì‹œê°„
 
-				go_adjList[to].add(new Edge(from, time)); // °¢ ³óÀå -> X : ¿ª¹æÇâÀ¸·Î ÀÎÁ¢¸®½ºÆ®¸¦ »ı¼ºÇÏ¿© X¿¡¼­ °¢ ³ëµåÀÇ ÃÖ´Ü °Å¸®¸¦ ±¸ÇÏ´Â ¹æ¹ı ÇØµµ µ¿ÀÏÇÑ ÃÖ´Ü°Å¸® °ªÀÌ ±¸ÇØÁü
-				back_adjList[from].add(new Edge(to, time)); // X ¿¡¼­ ³óÀåÀ¸·Î µÇµ¹¾Æ °¥¶§
+				go_adjList[to].add(new Edge(from, time)); // ê° ë†ì¥ -> X : ì—­ë°©í–¥ìœ¼ë¡œ ì¸ì ‘ë¦¬ìŠ¤íŠ¸ë¥¼ ìƒì„±í•˜ì—¬ Xì—ì„œ ê° ë…¸ë“œì˜ ìµœë‹¨ ê±°ë¦¬ë¥¼ êµ¬í•˜ëŠ” ë°©ë²• í•´ë„ ë™ì¼í•œ ìµœë‹¨ê±°ë¦¬ ê°’ì´ êµ¬í•´ì§
+				back_adjList[from].add(new Edge(to, time)); // X ì—ì„œ ë†ì¥ìœ¼ë¡œ ë˜ëŒì•„ ê°ˆë•Œ
 			}
 
 			// dijkstra
-			Edge start = new Edge(X, 0); //X·Î ºÎÅÍ °¢ ³ëµåÀÇ ÃÖ¼Ò°ª ±¸ÇÏ±â
+			Edge start = new Edge(X, 0); //Xë¡œ ë¶€í„° ê° ë…¸ë“œì˜ ìµœì†Œê°’ êµ¬í•˜ê¸°
 
-			dest = dijkstra(go_adjList, start); // °¢ ³óÀå¿¡¼­ X ±îÁö °¡´Â ÃÖ´Ü °Å¸®
-			back = dijkstra(back_adjList, start); // X ¿¡¼­ °¢ ³óÀå±îÁö °¡´Â ÃÖ´Ü °Å¸®
+			dest = dijkstra(go_adjList, start); // ê° ë†ì¥ì—ì„œ X ê¹Œì§€ ê°€ëŠ” ìµœë‹¨ ê±°ë¦¬
+			back = dijkstra(back_adjList, start); // X ì—ì„œ ê° ë†ì¥ê¹Œì§€ ê°€ëŠ” ìµœë‹¨ ê±°ë¦¬
 
 			int answer = 0;
 			for(int i = 1; i <= N; i++) {
@@ -71,23 +71,23 @@ public class ¿¬½ÀA_0011 {
 
 	// dijkstra
 	static int[] dijkstra(ArrayList<Edge>[] adjList, Edge start) {
-		// °¢ ÁöÁ¡ÀÇ ÃÖ´Ü °Å¸®°ªÀ» ÀúÀåÇÒ ¹è¿­ »ı¼º
+		// ê° ì§€ì ì˜ ìµœë‹¨ ê±°ë¦¬ê°’ì„ ì €ì¥í•  ë°°ì—´ ìƒì„±
 		int[] result = new int[N + 1];
 		Arrays.fill(result, inf);
 
-		// PriorityQueue »ç¿ë
+		// PriorityQueue ì‚¬ìš©
 		PriorityQueue<Edge> queue= new PriorityQueue<Edge>();
 
-		// Queue¿¡ ½ÃÀÛÁöÁ¡ »ğÀÔ
+		// Queueì— ì‹œì‘ì§€ì  ì‚½ì…
 		queue.add(start);
 		result[start.dest] = 0;
 
 		while(!queue.isEmpty()) {
-			Edge current = queue.poll(); // Queue¿¡¼­ ÇÏ³ª¾¿ ²¨³»¼­ È®ÀÎ ½ÃÀÛ
+			Edge current = queue.poll(); // Queueì—ì„œ í•˜ë‚˜ì”© êº¼ë‚´ì„œ í™•ì¸ ì‹œì‘
 
-			for(Edge next : adjList[current.dest]) { // ÀÎÁ¢ ¸®½ºÆ®¿¡¼­ ´ÙÀ½ ³ëµå¸¦ À§ÇÑ EdgeÁ¤º¸¸¦ ÇÏ³ª¾¿ ²¨³¿
-				if(result[next.dest] > result[current.dest] + next.time) { // ÇöÀç±îÁö °É¸° ½Ã°£ + °É¸± ½Ã°£ÀÌ ÀúÀåµÈ ½Ã°£º¸´Ù ÀÛÀ¸¸é ÃÖ¼Ò°ª °»½ÅÀ» ÇØ¾ßÇÑ´Ù.
-					result[next.dest] = result[current.dest] + next.time; // °ªÀ» º¯°æÇÏ°í ´ÙÀ½À¸·Î ÀÌµ¿ÇÒ °£¼± Á¤º¸¸¦ Queue¿¡ ³Ö´Â´Ù.
+			for(Edge next : adjList[current.dest]) { // ì¸ì ‘ ë¦¬ìŠ¤íŠ¸ì—ì„œ ë‹¤ìŒ ë…¸ë“œë¥¼ ìœ„í•œ Edgeì •ë³´ë¥¼ í•˜ë‚˜ì”© êº¼ëƒ„
+				if(result[next.dest] > result[current.dest] + next.time) { // í˜„ì¬ê¹Œì§€ ê±¸ë¦° ì‹œê°„ + ê±¸ë¦´ ì‹œê°„ì´ ì €ì¥ëœ ì‹œê°„ë³´ë‹¤ ì‘ìœ¼ë©´ ìµœì†Œê°’ ê°±ì‹ ì„ í•´ì•¼í•œë‹¤.
+					result[next.dest] = result[current.dest] + next.time; // ê°’ì„ ë³€ê²½í•˜ê³  ë‹¤ìŒìœ¼ë¡œ ì´ë™í•  ê°„ì„  ì •ë³´ë¥¼ Queueì— ë„£ëŠ”ë‹¤.
 					queue.add(next);
 				}
 			}
@@ -96,8 +96,8 @@ public class ¿¬½ÀA_0011 {
 	}
 
 	static class Edge implements Comparable<Edge> {
-		int dest; // ´ÙÀ½ ÀÌµ¿ ³óÀå
-		int time; // °É¸®´Â ½Ã°£
+		int dest; // ë‹¤ìŒ ì´ë™ ë†ì¥
+		int time; // ê±¸ë¦¬ëŠ” ì‹œê°„
 
 		public Edge(int dest, int time) {
 			super();
@@ -115,5 +115,4 @@ public class ¿¬½ÀA_0011 {
 			return 0;
 		}
 	}
-
 }
