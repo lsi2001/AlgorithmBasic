@@ -3,16 +3,16 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
-// ¼­·Î¼Ò ÁıÇÕ(Disjoint Set, Union-Find)
-// [±âÃâP-0008] ¿¬¹æ
-// ±³·ù¸¦ ÇÏ´Â µµ½ÃÀÎÁö ¾Æ´ÑÁö ÀÔ·ÂµÈ Ã³¸® ¶Ç´Â Áú¹®¿¡ µû¶ó ´äÀ» »ı¼ºÇÏ¿© Ãâ·Â
-// ¸ğµç ±³·ù¸¦ Â÷´ÜÇÏ´Â °£¼±À» Ã³¸®ÇÏ¿© °Å²Ù·Î ±³·ù¿©ºÎ¸¦ Ã¼Å©ÇÏ¸é¼­ Â÷´ÜµÈ ±³·ù¸¦ ´Ù½Ã ¿¬°áÇÏ´Â ¹æ¹ıÀ¸·Î °Å²Ù·Î Ã¼Å©ÇÏ¸é¼­ Ãâ·ÂÇÒ °á°ú¹°À» »ı¼ºÇÑ´Ù.
-public class ±âÃâP_0008 {
+// ì„œë¡œì†Œ ì§‘í•©(Disjoint Set, Union-Find)
+// [ê¸°ì¶œP-0008] ì—°ë°©
+// ë„ì‹œì˜ êµë¥˜ë¥¼ ì°¨ë‹¨í•˜ê³  ì„œë¡œ êµë¥˜ë¥¼ ì§ì ‘ ë˜ëŠ” ê°„ì ‘ìœ¼ë¡œ í•˜ëŠ” ë„ì‹œì¸ì§€ ë¬¼ì„ë•ŒëŠ” ê·¸ ê²°ê³¼ë¥´ ìƒì„±í•˜ì—¬ ì¶œë ¥
+// ëª¨ë“  êµë¥˜ë¥¼ ì°¨ë‹¨í•˜ëŠ” ì²˜ë¦¬ë¥¼ ë¯¸ë¦¬ ì²˜ë¦¬í•˜ê¸° ìœ„í•´ Union Find ë¥¼ ìœ„í•œ ë°°ì—´ìƒì„± ì‹œ ê°„ì„ ì€ ë¬´ì‹œí•˜ê³  ê±°ê¾¸ë¡œ ì§ˆë¬¸ ë˜ëŠ” ì²˜ë¦¬ë¥¼ í™•ì¸í•˜ë©° ë‹µì„ ìƒì„± í•œë‹¤. êµë¥˜ ì œê±° ì²˜ë¦¬ê°€ ë¨¼ì € ì´ë£¨ì–´ì¡Œìœ¼ë¯€ë¡œ ê±°ê¾¸ë¡œ ì§„í–‰í•  ë•ŒëŠ” êµë¥˜ ì •ë³´ë¥¼ ì¶”ê°€í•œë‹¤.
+public class ê¸°ì¶œP_0008 {
 	//public class Solution { 
 	static int[] U;  // Union Find
-	static int [][] conn; // ±³·ù µµ½ÃÀÇ °£¼± Á¤º¸¸¦ ¸ğµÎ ÀúÀåÇØ ³õÀ½
-	static int[][] q;  // ±³·ù Á¦°Å Ã³¸® ¶Ç´Â ¿¬ÇÕ ¿©ºÎ Áú¹® Á¤º¸¸¦ ¸ğµÎ ÀúÀåÇØ³õÀ½
-	static boolean[] cutOff; // ±³·ù¸¦ Á¦°ÅÇÏ´Â Ã³¸®°¡ ¸î¹øÂ° °£¼± Á¤º¸ÀÎÁö ÀúÀåÇØ ³õÀ½ -> °£¼± Á¤º¸¸¦ ÀÌ¿ëÇØ U[]ÀÇ °ªÀ» ÀÔ·ÂÇÒ ¶§ Á¦¿Ü Ã³¸®
+	static int [][] conn; // êµë¥˜ ë„ì‹œì˜ ê°„ì„  ì •ë³´ë¥¼ ëª¨ë‘ ì €ì¥í•´ ë†“ìŒ
+	static int[][] q;  // êµë¥˜ ì œê±° ì²˜ë¦¬ ë˜ëŠ” ì—°í•© ì—¬ë¶€ ì§ˆë¬¸ ì •ë³´ë¥¼ ëª¨ë‘ ì €ì¥í•´ë†“ìŒ
+	static boolean[] cutOff; // êµë¥˜ë¥¼ ì œê±°í•˜ëŠ” ì²˜ë¦¬ê°€ ëª‡ë²ˆì§¸ ê°„ì„  ì •ë³´ì¸ì§€ ì €ì¥í•´ ë†“ìŒ -> ê°„ì„  ì •ë³´ë¥¼ ì´ìš©í•´ U[]ì˜ ê°’ì„ ì…ë ¥í•  ë•Œ ì œì™¸ ì²˜ë¦¬
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,16 +22,16 @@ public class ±âÃâP_0008 {
 		int T = Integer.parseInt(br.readLine());
 		for(int tc = 1; tc <= T; tc++ ) {
 			st = new StringTokenizer(br.readLine());
-			int N = Integer.parseInt(st.nextToken()); // ³ª¶óÀÇ ¼ö
-			int M = Integer.parseInt(st.nextToken()); // °£¼± Á¤º¸ÀÇ ¼ö
+			int N = Integer.parseInt(st.nextToken()); // ë‚˜ë¼ì˜ ìˆ˜
+			int M = Integer.parseInt(st.nextToken()); // ê°„ì„  ì •ë³´ì˜ ìˆ˜
 
-			U = new int[N+1]; // Union Find »ç¿ëÀ» À§ÇÑ ¹è¿­
-			conn = new int[M+1][2]; // ¿¬°áµÇ´Â µÎ ³ª¶ó ¹øÈ£¸¦ ÀúÀå
-			cutOff = new boolean[M+1]; // ±³·ù°¡ ²÷¾îÁö´Â Ã³¸®¸¦ ÇØ¾ßÇÏ´Â °£¼±ÀÇ ÀÎµ¦½º¸¦ ÀúÀå
+			U = new int[N+1]; // Union Find ì‚¬ìš©ì„ ìœ„í•œ ë°°ì—´
+			conn = new int[M+1][2]; // ì—°ê²°ë˜ëŠ” ë‘ ë‚˜ë¼ ë²ˆí˜¸ë¥¼ ì €ì¥
+			cutOff = new boolean[M+1]; // êµë¥˜ê°€ ëŠì–´ì§€ëŠ” ì²˜ë¦¬ë¥¼ í•´ì•¼í•˜ëŠ” ê°„ì„ ì˜ ì¸ë±ìŠ¤ë¥¼ ì €ì¥
 			for(int i = 1; i <= N; i++) {
 				U[i] = i;
 			}
-			for(int i = 1; i <= M; i++) {  // Áú¹®ÀÌ ÀÌÈÄ¿¡ ³ª¿À¹Ç·Î ¿¬°á Á¤º¸¸¦ ¹Ì¸® ¹è¿­¿¡ ÀúÀåÇØ µĞ´Ù.
+			for(int i = 1; i <= M; i++) {  // ì§ˆë¬¸ì´ ì´í›„ì— ë‚˜ì˜¤ë¯€ë¡œ ì—°ê²° ì •ë³´ë¥¼ ë¯¸ë¦¬ ë°°ì—´ì— ì €ì¥í•´ ë‘”ë‹¤.
 				st = new StringTokenizer(br.readLine());
 				int nation1 = Integer.parseInt(st.nextToken());
 				int nation2 = Integer.parseInt(st.nextToken());
@@ -39,29 +39,29 @@ public class ±âÃâP_0008 {
 				conn[i][1] = nation2;
 			}
 
-			int Q = Integer.parseInt(br.readLine()); // Ã³¸® + Áú¹®ÀÇ ¼ö
-			q = new int[Q][3]; // ´äÀ» ±¸ÇÏ±â À§ÇÏ¿© q ¿¡ Ã³¸® ¶Ç´Â Áú¹®À» ÀúÀåÇØ µĞ´Ù.
-			for(int i = Q - 1; i >= 0 ; i--) { // ¹è¿­À» °Å²Ù·Î Ã¤¿ö³Ö°í ÀÌÈÄ Ãâ·Âµµ °Å²Ù·Î »ı¼º ÇÑ´Ù.
+			int Q = Integer.parseInt(br.readLine()); // ì²˜ë¦¬ + ì§ˆë¬¸ì˜ ìˆ˜
+			q = new int[Q][3]; // ë‹µì„ êµ¬í•˜ê¸° ìœ„í•˜ì—¬ q ì— ì²˜ë¦¬ ë˜ëŠ” ì§ˆë¬¸ì„ ì €ì¥í•´ ë‘”ë‹¤.
+			for(int i = Q - 1; i >= 0 ; i--) { // ë°°ì—´ì„ ê±°ê¾¸ë¡œ ì±„ì›Œë„£ê³  ì´í›„ ì¶œë ¥ë„ ê±°ê¾¸ë¡œ ìƒì„± í•œë‹¤.
 				st = new StringTokenizer(br.readLine());
-				if(1 == Integer.parseInt(st.nextToken())) { // °£¼±ÀÇ ±³·ù Á¤º¸¸¦ Á¦°ÅÇÏ´Â Ã³¸®ÀÇ °æ¿ì  
-					int k = Integer.parseInt(st.nextToken()); // ÀÔ·ÂµÈ °£¼± Á¤º¸Áß ¸î¹øÂ° ±³·ù Á¤º¸¸¦ Á¦°ÅÇÒÁö Ã¼Å©
-					cutOff[k] = true;
+				if(1 == Integer.parseInt(st.nextToken())) { // ê°„ì„ ì˜ êµë¥˜ ì •ë³´ë¥¼ ì œê±°í•˜ëŠ” ì²˜ë¦¬ì˜ ê²½ìš°  
+					int k = Integer.parseInt(st.nextToken()); 
+					cutOff[k] = true; // ì…ë ¥ëœ ê°„ì„  ì •ë³´ì¤‘ ëª‡ë²ˆì§¸ êµë¥˜ ì •ë³´ë¥¼ ì œê±°í• ì§€ ì²´í¬
 					q[i][0] = 1;
 					q[i][1] = k;
-				} else { // ±³·ù »óÅÂÀÎÁö ¹®ÀÇÇÏ´Â °æ¿ì
+				} else { // êµë¥˜ ìƒíƒœì¸ì§€ ë¬¸ì˜í•˜ëŠ” ê²½ìš°
 					q[i][0] = 2;
 					q[i][1] = Integer.parseInt(st.nextToken());
 					q[i][2] = Integer.parseInt(st.nextToken());
 				}
 			}
 
-			for(int i = 1; i <= M; i++) { // À§¿¡¼­ ÀÔ·ÂÇÑ ¿¬°á Á¤º¸·Î Union Find ¼öÇàÀ» À§ÇÑ ¹è¿­À» »ı¼ºÇÑ´Ù.
-				if(!cutOff[i]) U[conn[i][1]] = conn[i][0]; // ±³·ù Á¤º¸¸¦ Á¦°ÅÇÏ´Â °æ¿ìÀÇ ÀÎµ¦½º¿¡ ÇØ´çÇÏ´Â Á¤º¸´Â Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+			for(int i = 1; i <= M; i++) { // ìœ„ì—ì„œ ì…ë ¥í•œ ì—°ê²° ì •ë³´ë¡œ Union Find ìˆ˜í–‰ì„ ìœ„í•œ ë°°ì—´ì„ ìƒì„±í•œë‹¤.
+				if(!cutOff[i]) U[conn[i][1]] = conn[i][0]; // êµë¥˜ ì •ë³´ë¥¼ ì œê±°í•˜ëŠ” ê²½ìš°ì˜ ì¸ë±ìŠ¤ì— í•´ë‹¹í•˜ëŠ” ì •ë³´ëŠ” ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
 			}
 
 			StringBuffer sb = new StringBuffer();
 			for(int i = 0; i < Q; i++) {
-				if(1 == q[i][0]) { // ±³·ù Á¤º¸ Á¦°Å Ã³¸®°¡ ¸ğµÎ µÈ »óÅÂÀÌ¹Ç·Î °Å²Ù·Î °Å½½·¯ ¿Ã¶ó°¡¸é¼­ °è»ê ½Ã ±³·ù ÇÏµµ·Ï Àû¿ëÇÑ´Ù.(Union)
+				if(1 == q[i][0]) { // êµë¥˜ ì •ë³´ ì œê±° ì²˜ë¦¬ê°€ ëª¨ë‘ ëœ ìƒíƒœì´ë¯€ë¡œ ê±°ê¾¸ë¡œ ê±°ìŠ¬ëŸ¬ ì˜¬ë¼ê°€ë©´ì„œ ê³„ì‚° ì‹œ êµë¥˜ í•˜ë„ë¡ ì ìš©í•œë‹¤.(Union)
 					// Union
 					merge(conn[q[i][1]][0], conn[q[i][1]][1]);
 				} else {
