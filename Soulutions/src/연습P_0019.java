@@ -2,8 +2,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-// [연습P-0019] 구간합
 // 인덱스 트리, indexed tree
+// [연습P-0019] 구간합
 // 주어진 수열을 변경하면서 구간합을 구하고 그 구간 합들의 합을 출력한다.
 public class 연습P_0019 {
 
@@ -49,7 +49,7 @@ public class 연습P_0019 {
 
 	// 인덱스 트리를 나타낼 배열 생성
 	private static void initTree() {
-		while (N > leafCount) {  // 리프노드의 갯수를 결정 한다. 트리구성을 해야하므로 입력된 N보다 큰 2재곱 수
+		while (N > leafCount) {  // 리프노드의 갯수를 결정 한다. 트리구성을 해야하므로 입력된 N보다 큰 2제곱 수
 			leafCount <<= 1;
 		}
 
