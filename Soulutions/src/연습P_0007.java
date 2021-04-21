@@ -18,7 +18,7 @@ public class 연습P_0007 {
 	static PriorityQueue<Edge> queue = new PriorityQueue<Edge>(); // 비용이 가장 작은 간선 정보 사용
 	
 	// 크루스칼(Kruskal)/유니온-파인드(Union-Find)
-	static int[] parent; 
+	//static int[] parent; 
 	
 	// 프림(Prim) 간선 정보
 	static boolean[] visited;
@@ -140,16 +140,16 @@ public class 연습P_0007 {
 	}
 
 	// union
-	private static void merge(int a, int b) {
+	/*private static void merge(int a, int b) {
 		int aRoot = find(a);
 		int bRoot = find(b);
 
 		parent[aRoot] = bRoot;
-	}
+	}*/
 
 	// find
-	private static int find(int a) {
+	/*private static int find(int a) {
 		if(parent[a] == a) return a;
 		else return parent[a] = find(parent[a]);
-	}
+	}*/
 }
