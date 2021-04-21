@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
+
 // 서로소 집합(Disjoint Set, Union-Find)
 // [기출P-0008] 연방
 // 도시의 교류를 차단하고 서로 교류를 직접 또는 간접으로 하는 도시인지 물을때는 그 결과를 생성하여 출력
