@@ -92,6 +92,7 @@ public class 기출P_0063 {
 		int nextX, nextY;
 		while(!queue.isEmpty()) {
 			currentNode = queue.poll();
+			visited[currentNode.x][currentNode.y] = true;
 			if(currentNode.x != endNode.x || currentNode.y != endNode.y) {
 				for(int d = 0; d < direction.length; d++) {
 					nextX = currentNode.x + direction[d][0];
@@ -102,8 +103,7 @@ public class 기출P_0063 {
 							&& !visited[nextX][nextY] // 미방문
 							) {
 						queue.add(new Node(nextX, nextY));
-						visited[nextX][nextY] = true;
-						distance[nextX][nextY] = distance[currentNode.x][currentNode.y] + 1; // 이동 거리를 표시 함
+						distance[nextX][nextY] = distance[currentNode.x][currentNode.y] + 1; // 다음 노드로 이동하면 이전값을 알 수 없기 때문에 queue 추가 후 이동 거리가 될 값을 미리 저장함. 
 					}
 				}
 			} else {
