@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
+//다익스트라(Dijkstra) (한 지점에서 각각의 최단거리 구하기, 간선의 비용은 양수)
 // [연습A-0011] Cow Party
-// 다익스트라(Dijkstra) (한 지점에서 각각의 최단거리 구하기, 간선의 비용은 양수)
 // 각 농장에서 X 농장을 최단거리로 갔다가 다시 돌아오는 값을 구하는 문제
 //
 // 갈때와 올때의 두 값을 합쳐 최대 인 값을 구하여 출력
