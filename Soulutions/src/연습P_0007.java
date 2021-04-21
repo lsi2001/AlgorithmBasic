@@ -32,6 +32,7 @@ public class 연습P_0007 {
 			for(int i = 1; i <= N; i++) {
 				parent[i] = i;
 			}
+			//Edge[] edgeArray = new Edge[M]; // sort 필요
 			queue = new PriorityQueue<Edge>(); // 가장 적은 비용이 드는 도로정보 확인
 
 			for(int i = 0; i < M; i++) {
@@ -40,15 +41,32 @@ public class 연습P_0007 {
 				int e = Integer.parseInt(st.nextToken());
 				int c = Integer.parseInt(st.nextToken()); // 도로를 건설하는데 드는 비용
 
-				queue.add(new Edge(s, e, c)); // 우선 순위 큐에 삽입
+				//edgeArray[i] = new Edge(s, e, c);
+				queue.add(new Edge(s, e, c)); // 우선 순위 큐에 삽입, 가중치 크기로 정렬하므로 방향 무시
+
 			}
 
-			while(!queue.isEmpty()) {
+			/*Arrays.sort(edgeArray);
+            int count = 0;
+            for(int i = 0; i < M; i++) {
+                Edge e = edgeArray[i];
+
+                if(find(e.start) != find(e.end)) { // 연결이 안된 도시면 연결하고 출력할 비용의 합을 계산한다.
+                  merge(e.start, e.end);
+                  answer += e.cost;
+                  if(count == (N - 1)) break;
+              }
+            }*/
+
+
+			int count = 0;
+			while(count < N && !queue.isEmpty()) { // N 개의 노드에 N-1개 간선
 				Edge e = queue.poll(); // 큐에서 하나씩 꺼낸다.
 
 				if(find(e.start) != find(e.end)) { // 연결이 안된 도시면 연결하고 출력할 비용의 합을 계산한다.
 					merge(e.start, e.end);
 					answer += e.cost;
+					count++;
 				}
 			}
 
@@ -73,7 +91,7 @@ public class 연습P_0007 {
 		public int compareTo(Edge o) {
 			if(this.cost > o.cost) return 1;
 			else if(this.cost < o.cost) return -1;
-			else return 1;
+			else return 0;
 		}
 	}
 
