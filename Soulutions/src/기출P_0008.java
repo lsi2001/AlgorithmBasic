@@ -34,10 +34,10 @@ public class 기출P_0008 {
 			}
 			for(int i = 1; i <= M; i++) {  // 질문이 이후에 나오므로 연결 정보를 미리 배열에 저장해 둔다.
 				st = new StringTokenizer(br.readLine());
-				int nation1 = Integer.parseInt(st.nextToken());
-				int nation2 = Integer.parseInt(st.nextToken());
-				conn[i][0] = nation1;
-				conn[i][1] = nation2;
+				int country1 = Integer.parseInt(st.nextToken());
+				int country2 = Integer.parseInt(st.nextToken());
+				conn[i][0] = country1;
+				conn[i][1] = country2;
 			}
 
 			int Q = Integer.parseInt(br.readLine()); // 처리 + 질문의 수
